@@ -126,6 +126,12 @@ MainMenu::MainMenu(bool isIP, bool isPlugin, QWidget* parent) : QMenuBar(parent)
   m_fileImportActions.push_back(action);
   //m_preferencesActions.push_back(action); // DLM: I'm unclear if this should be enabled/disabled with preferences or file imports, right now does not matter
 
+  QMenu* exampleMenu = m_fileMenu->addMenu(tr("E&xamples"));
+
+  action = new QAction(tr("&Example Model"), this);
+  exampleMenu->addAction(action);
+  connect(action, &QAction::triggered, this, &MainMenu::loadExampleModelClicked);
+
   if (!m_isPlugin) {
 
     m_fileMenu->addSeparator();
@@ -234,7 +240,10 @@ MainMenu::MainMenu(bool isIP, bool isPlugin, QWidget* parent) : QMenuBar(parent)
   connect(action, &QAction::triggered, this, &MainMenu::aboutClicked);
 }
 
-MainMenu::~MainMenu() {}
+MainMenu::~MainMenu() 
+{
+  disconnect();
+}
 
 void MainMenu::displaySIUnitsClicked() {
   m_displaySIUnitsAction->setChecked(true);

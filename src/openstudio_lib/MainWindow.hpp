@@ -119,6 +119,8 @@ class MainWindow : public QMainWindow
 
   void loadLibraryClicked();
 
+  void loadExampleModelClicked();
+
   void saveAsFileClicked();
 
   void saveFileClicked();

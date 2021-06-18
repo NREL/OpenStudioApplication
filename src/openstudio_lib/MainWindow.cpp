@@ -117,6 +117,7 @@ MainWindow::MainWindow(bool isPlugin, QWidget* parent) : QMainWindow(parent), m_
   connect(mainMenu, &MainMenu::changeDefaultLibrariesClicked, this, &MainWindow::changeDefaultLibrariesClicked);
   connect(mainMenu, &MainMenu::configureExternalToolsClicked, this, &MainWindow::configureExternalToolsClicked);
   connect(mainMenu, &MainMenu::loadLibraryClicked, this, &MainWindow::loadLibraryClicked);
+  connect(mainMenu, &MainMenu::loadExampleModelClicked, this, &MainWindow::loadExampleModelClicked);
   connect(mainMenu, &MainMenu::saveAsFileClicked, this, &MainWindow::saveAsFileClicked);
   connect(mainMenu, &MainMenu::saveFileClicked, this, &MainWindow::saveFileClicked);
   connect(mainMenu, &MainMenu::revertFileClicked, this, &MainWindow::revertFileClicked);

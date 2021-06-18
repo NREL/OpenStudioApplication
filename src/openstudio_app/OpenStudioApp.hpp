@@ -157,6 +157,9 @@ class OpenStudioApp : public OSAppBase
   // Loads the selected file (File > Load Library), and adds it to the user settings if not already there, by calling writeLibraryPaths
   void loadLibrary();
 
+  // Loads the result of openstudio::model::exampleModel()
+  void loadExampleModel();
+
   // Checks what happened in the LibraryDialog preference panes, and calls writeLibraryPaths to set the user settings
   void changeDefaultLibraries();
 
@@ -229,6 +232,8 @@ class OpenStudioApp : public OSAppBase
   void setLastPath(const QString& t_lastPath);
 
   void connectOSDocumentSignals();
+
+  void disconnectOSDocumentSignals();
 
   // Removes the given path from the list of library settings (and calls writeLibraryPaths)
   void removeLibraryFromsSettings(const openstudio::path& path);

@@ -172,6 +172,7 @@ OSDocument::OSDocument(const openstudio::model::Model& library, const openstudio
   } else {
     modelTempDir = model::initializeModel(*model);
     m_mainWindow->setWindowTitle("Untitled[*]");
+    initalizeWorkflow = true;
   }
   m_modelTempDir = toQString(modelTempDir);
 
@@ -196,6 +197,7 @@ OSDocument::OSDocument(const openstudio::model::Model& library, const openstudio
   connect(m_mainWindow, &MainWindow::changeDefaultLibrariesClicked, this, &OSDocument::changeDefaultLibrariesClicked);
   connect(m_mainWindow, &MainWindow::configureExternalToolsClicked, this, &OSDocument::configureExternalToolsClicked);
   connect(m_mainWindow, &MainWindow::loadLibraryClicked, this, &OSDocument::loadLibraryClicked);
+  connect(m_mainWindow, &MainWindow::loadExampleModelClicked, this, &OSDocument::loadExampleModelClicked);
   connect(m_mainWindow, &MainWindow::newClicked, this, &OSDocument::newClicked);
   connect(m_mainWindow, &MainWindow::exitClicked, this, &OSDocument::exitClicked);
   connect(m_mainWindow, &MainWindow::helpClicked, this, &OSDocument::helpClicked);
@@ -248,6 +250,8 @@ OSDocument::OSDocument(const openstudio::model::Model& library, const openstudio
 OSDocument::~OSDocument() {
   // blockSignals wouldn't work now anyways because of nano signal slot implementation
   // m_model.getImpl<openstudio::model::detail::Model_Impl>()->blockSignals(true);
+
+  disconnect();
 
   // release the file watchers so can remove model temp dir
   m_mainTabController.reset();
