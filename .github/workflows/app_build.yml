@@ -430,11 +430,15 @@ jobs:
 
         echo "$QT_INSTALL_DIR/bin" >> $GITHUB_PATH
         echo QT_INSTALL_DIR=$QT_INSTALL_DIR >> $GITHUB_ENV
-        ls ./build/Qt-install/$QT_VERSION/
-        ls $QT_INSTALL_DIR || true
-        ls $QT_INSTALL_DIR/lib || true
-        ls $QT_INSTALL_DIR/lib/cmake || true
+        #ls ./build/Qt-install/$QT_VERSION/
+        #ls $QT_INSTALL_DIR || true
+        #ls $QT_INSTALL_DIR/lib || true
+        #ls $QT_INSTALL_DIR/lib/cmake || true
         find ./build/Qt-install -name "*.cmake"
+        #ls $QT_INSTALL_DIR/translations || true
+        #ls $QT_INSTALL_DIR/translations/qtwebengine_locales || true
+        find ./build/Qt-install . -name "*.qm"
+        find ./build/Qt-install . -name "*.pak"
 
     #- name: Cache Qt dep cache?
       ## To avoid downloading the Qt dependency all the time, we try to cache it

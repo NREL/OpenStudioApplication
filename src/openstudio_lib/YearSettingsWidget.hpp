@@ -50,7 +50,9 @@ class OSComboBox2;
 
 class OSSwitch2;
 
-class YearSettingsWidget : public QWidget, public Nano::Observer
+class YearSettingsWidget
+  : public QWidget
+  , public Nano::Observer
 {
   Q_OBJECT
 
@@ -60,13 +62,15 @@ class YearSettingsWidget : public QWidget, public Nano::Observer
   static const int LASTYEAR;
 
   // A list of the weeks in the month.  1st, 2nd, 3rd, 4th, Last
-  static std::vector<std::string> weeksInMonth();
+  static QStringList weeksInMonth();
 
   // A list of the days in the week.  Monday, Tuesday...
-  static std::vector<std::string> daysOfWeek();
+  static QStringList daysOfWeek();
 
   // A list of the months.
-  static std::vector<std::string> months();
+  static QStringList months();
+
+  static QStringList validDayofWeekforStartDay();
 
   YearSettingsWidget(const model::Model& model, QWidget* parent = nullptr);
 

@@ -190,6 +190,8 @@ class OPENSTUDIO_API OSDocument : public OSQObjectController
 
   void configureExternalToolsClicked();
 
+  void changeLanguageClicked(const QString& rLanguage);
+
   void loadLibraryClicked();
 
   void newClicked();

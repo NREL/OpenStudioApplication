@@ -117,6 +117,8 @@ class MainWindow : public QMainWindow
 
   void configureExternalToolsClicked();
 
+  void changeLanguageClicked(const QString& rLanguage);
+
   void loadLibraryClicked();
 
   void saveAsFileClicked();
@@ -189,11 +191,15 @@ class MainWindow : public QMainWindow
 
   bool m_displayIP;
 
+  QString m_currLang;
+
   QString m_lastPath;
 
  private slots:
 
   void toggleUnits(bool displayIP);
+
+  void changeLanguage(const QString& rLanguage);
 
   void configureProxyClicked();
 

@@ -119,8 +119,6 @@ elseif(UNIX)
 
 endif()
 
-#include_directories(SYSTEM ${RUBY_INCLUDE_DIRS})
-
 add_executable(${target_name}
   WIN32
   MACOSX_BUNDLE
@@ -128,6 +126,7 @@ add_executable(${target_name}
   ${${target_name}_moc_src}
   ${${target_name}_moc}
   ${ICON_SRC}
+  ${QM_FILES}
 )
 
 if (NINJA)
@@ -225,11 +224,6 @@ elseif( UNIX )
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_devtools} $<TARGET_FILE_DIR:${target_name}>/resources/
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_100} $<TARGET_FILE_DIR:${target_name}>/resources/
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_200} $<TARGET_FILE_DIR:${target_name}>/resources/
-    #COMMAND ${CMAKE_COMMAND} -E copy_directory ${QT_INSTALL_DIR}/translations $<TARGET_FILE_DIR:${target_name}>/translations/
-    # Copying just one locale is enough to shut the annoying console warning...
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${target_name}>/translations/
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${target_name}>/translations/qtwebengine_locales
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_INSTALL_DIR}/translations/qtwebengine_locales/en-US.pak $<TARGET_FILE_DIR:${target_name}>/translations/qtwebengine_locales/
   )
 
   # TODO: not sure if chrpath is needed
@@ -274,11 +268,6 @@ elseif( WIN32 )
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_devtools} $<TARGET_FILE_DIR:${target_name}>/resources/
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_100} $<TARGET_FILE_DIR:${target_name}>/resources/
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${qweb_resources_200} $<TARGET_FILE_DIR:${target_name}>/resources/
-    #COMMAND ${CMAKE_COMMAND} -E copy_directory ${QT_INSTALL_DIR}/translations $<TARGET_FILE_DIR:${target_name}>/translations/
-    # Copying just one locale is enough to shut the annoying console warning...
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${target_name}>/translations/
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${target_name}>/translations/qtwebengine_locales
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QT_INSTALL_DIR}/translations/qtwebengine_locales/en-US.pak $<TARGET_FILE_DIR:${target_name}>/translations/qtwebengine_locales/
   )
 
   add_custom_command(TARGET ${target_name}
@@ -404,6 +393,10 @@ if( APPLE )
   #list(APPEND QTPLUGINS "\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/sceneparsers/libgltfsceneparser.dylib")
   #list(APPEND QTPLUGINS "\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/sceneparsers/libassimpsceneparser.dylib")
   install(DIRECTORY ${QtWebEngineProcess} DESTINATION "OpenStudioApp.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/" COMPONENT OpenStudioApp USE_SOURCE_PERMISSIONS)
+
+  # TODO: this is definitely a shot in the dark and is unlikely to work. The WebEngine .paks in particular probably need to live somewhere else
+  install(DIRECTORY $<TARGET_FILE_DIR:${target_name}>/translations/ DESTINATION "OpenStudioApp.app/Contents/Resources/translations/" COMPONENT OpenStudioApp)
+
   list(APPEND QTPLUGINS "\${CMAKE_INSTALL_PREFIX}/OpenStudioApp.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess")
 endif()
 

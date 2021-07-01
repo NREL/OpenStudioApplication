@@ -300,7 +300,7 @@ void InspectorDialog::rebuildInspectorGadget(bool recursive) {
 }
 
 void InspectorDialog::saveState() {
-  QString organizationName("OpenStudio");
+  QString organizationName = QCoreApplication::organizationName();
   QString applicationName("InspectorDialog");
   QSettings settings(organizationName, applicationName);
   settings.setValue("Geometry", QMainWindow::saveGeometry());

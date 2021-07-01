@@ -64,7 +64,7 @@
 
 namespace openstudio {
 
-MainWindow::MainWindow(bool isPlugin, QWidget* parent) : QMainWindow(parent), m_isPlugin(isPlugin), m_displayIP(true) {
+MainWindow::MainWindow(bool isPlugin, QWidget* parent) : QMainWindow(parent), m_isPlugin(isPlugin), m_displayIP(true), m_currLang("en") {
   setMinimumSize(900, 658);
   setAcceptDrops(true);
 
@@ -99,8 +99,9 @@ MainWindow::MainWindow(bool isPlugin, QWidget* parent) : QMainWindow(parent), m_
 
   setCentralWidget(m_mainSplitter);
 
-  auto mainMenu = new MainMenu(m_displayIP, m_isPlugin);
+  auto mainMenu = new MainMenu(m_displayIP, m_isPlugin, m_currLang);
   connect(mainMenu, &MainMenu::toggleUnitsClicked, this, &MainWindow::toggleUnits);
+  connect(mainMenu, &MainMenu::changeLanguageClicked, this, &MainWindow::changeLanguage);
   connect(mainMenu, &MainMenu::downloadComponentsClicked, this, &MainWindow::downloadComponentsClicked);
   connect(mainMenu, &MainMenu::openLibDlgClicked, this, &MainWindow::openLibDlgClicked);
 
@@ -116,6 +117,7 @@ MainWindow::MainWindow(bool isPlugin, QWidget* parent) : QMainWindow(parent), m_
   connect(mainMenu, &MainMenu::loadFileClicked, this, &MainWindow::loadFileClicked);
   connect(mainMenu, &MainMenu::changeDefaultLibrariesClicked, this, &MainWindow::changeDefaultLibrariesClicked);
   connect(mainMenu, &MainMenu::configureExternalToolsClicked, this, &MainWindow::configureExternalToolsClicked);
+  connect(mainMenu, &MainMenu::changeLanguageClicked, this, &MainWindow::changeLanguageClicked);
   connect(mainMenu, &MainMenu::loadLibraryClicked, this, &MainWindow::loadLibraryClicked);
   connect(mainMenu, &MainMenu::saveAsFileClicked, this, &MainWindow::saveAsFileClicked);
   connect(mainMenu, &MainMenu::saveFileClicked, this, &MainWindow::saveFileClicked);
@@ -260,6 +262,11 @@ void MainWindow::readSettings() {
   restoreGeometry(settings.value("geometry").toByteArray());
   restoreState(settings.value("state").toByteArray());
   m_displayIP = settings.value("displayIP").toBool();
+  m_currLang = settings.value("language", "en").toString();
+  LOG_FREE(Debug, "MainWindow", "\n\n\nm_currLang=[" << m_currLang.toStdString() << "]\n\n\n");
+  if (m_currLang.isEmpty()) {
+    m_currLang = "en";
+  }
 }
 
 void MainWindow::writeSettings() {
@@ -271,14 +278,24 @@ void MainWindow::writeSettings() {
   settings.setValue("geometry", saveGeometry());
   settings.setValue("state", saveState());
   settings.setValue("displayIP", m_displayIP);
+  settings.setValue("language", m_currLang);
 }
 
 QString MainWindow::lastPath() const {
   return QDir().exists(m_lastPath) ? m_lastPath : QDir::homePath();
 }
 
+//QString MainWindow::currentLanguage() const {
+//return m_currLang.isEmpty() ? "en" : m_currLang;
+//}
+
 void MainWindow::toggleUnits(bool displayIP) {
   m_displayIP = displayIP;
+}
+
+void MainWindow::changeLanguage(const QString& rLanguage) {
+  m_currLang = rLanguage;
+  writeSettings();
 }
 
 void MainWindow::configureProxyClicked() {

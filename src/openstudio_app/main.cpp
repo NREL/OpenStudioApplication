@@ -55,6 +55,7 @@
 #include <QTcpServer>
 #include <QtGlobal>
 #include <QLibraryInfo>
+#include <QTranslator>
 
 #ifdef _WIN32
 #  include <Windows.h>
