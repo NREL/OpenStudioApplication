@@ -382,7 +382,6 @@ if(MSVC)
   # ignore base class not dll-exported error
   add_definitions(/wd4275)
 
-
   add_definitions(/bigobj)
 
   if(CMAKE_CL_64)

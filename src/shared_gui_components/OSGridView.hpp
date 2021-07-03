@@ -79,6 +79,8 @@ class OSGridView : public QWidget
 
   virtual void showEvent(QShowEvent* event) override;
 
+  virtual void resizeEvent(QResizeEvent* event) override;
+
  signals:
 
   void dropZoneItemClicked(OSItem* item);
@@ -111,6 +113,18 @@ class OSGridView : public QWidget
   // recreate all widgets
   void recreateAll();
 
+  // convert row to layout index
+  constexpr int layoutIndex(int row) const;
+
+  // get row in layout
+  constexpr int rowInLayout(int row) const;
+
+  // update column widths
+  void updateColumnWidths();
+
+  // get width for column
+  int widthForColumn(int column) const;
+
   // construct a grid layout to our specs
   QGridLayout* makeGridLayout();
 
@@ -121,7 +135,9 @@ class OSGridView : public QWidget
 
   QVBoxLayout* m_contentLayout;
 
-  QGridLayout* m_gridLayout;
+  std::vector<QGridLayout*> m_gridLayouts;
+
+  std::vector<int> m_columnWidths;
 
   OSCollapsibleView* m_collapsibleView;
 

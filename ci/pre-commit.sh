@@ -5,6 +5,6 @@
 # stash unstaged changes
 git stash -k -u
 # Run clang format
-./ci/clang-format.sh HEAD develop
+./ci/clang-format.sh HEAD origin/develop
 # Pop stash
 git stash pop
