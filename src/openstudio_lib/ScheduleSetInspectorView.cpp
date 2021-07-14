@@ -760,7 +760,7 @@ void ScheduleSetInspectorView::attach(const openstudio::model::DefaultScheduleSe
   m_nameEdit->bind(*m_defaultScheduleSet, OptionalStringGetter(std::bind(&model::DefaultScheduleSet::name, m_defaultScheduleSet.get_ptr(), true)),
                    boost::optional<StringSetterOptionalStringReturn>(
                      std::bind(&model::DefaultScheduleSet::setName, m_defaultScheduleSet.get_ptr(), std::placeholders::_1)));
-
+  m_nameEdit->setLocked(false);
   this->stackedWidget()->setCurrentIndex(1);
 }
 

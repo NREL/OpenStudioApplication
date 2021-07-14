@@ -697,6 +697,9 @@ void MainRightColumnController::configureForFacilitySubTab(int subTabID) {
   myModelList->addModelObjectType(IddObjectType::OS_Luminaire_Definition, "Luminaire Definitions");
   myModelList->addModelObjectType(IddObjectType::OS_Lights_Definition, "Lights Definitions");
   myModelList->addModelObjectType(IddObjectType::OS_People_Definition, "People Definitions");
+  myModelList->addModelObjectType(IddObjectType::OS_Exterior_WaterEquipment_Definition, "Exterior Water Equipment Definitions");
+  myModelList->addModelObjectType(IddObjectType::OS_Exterior_FuelEquipment_Definition, "Exterior Fuel Equipment Definitions");
+  myModelList->addModelObjectType(IddObjectType::OS_Exterior_Lights_Definition, "Exterior Lights Definitions");
   //myModelList->addModelObjectType(IddObjectType::OS_SpaceInfiltration_DesignFlowRate, "Space Infiltration Design Flow Rates"); // do not show in my model because these are not shareable
   myModelList->addModelObjectType(IddObjectType::OS_DesignSpecification_OutdoorAir, "Design Specification Outdoor Air");
   myModelList->addModelObjectType(IddObjectType::OS_DefaultScheduleSet, "Schedule Sets");
@@ -746,6 +749,12 @@ void MainRightColumnController::configureForFacilitySubTab(int subTabID) {
   myLibraryList->addModelObjectType(IddObjectType::OS_Luminaire_Definition, "Luminaire Definitions");
   myLibraryList->addModelObjectType(IddObjectType::OS_Lights_Definition, "Lights Definitions");
   myLibraryList->addModelObjectType(IddObjectType::OS_People_Definition, "People Definitions");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_WaterEquipment_Definition, "Exterior Water Equipment Definitions");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_FuelEquipment_Definition, "Exterior Fuel Equipment Definitions");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_Lights_Definition, "Exterior Lights Definitions");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_WaterEquipment, "Exterior Water Equipment");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_FuelEquipment, "Exterior Fuel Equipment");
+  myLibraryList->addModelObjectType(IddObjectType::OS_Exterior_Lights, "Exterior Lights");
   myLibraryList->addModelObjectType(IddObjectType::OS_SpaceInfiltration_DesignFlowRate, "Space Infiltration Design Flow Rates");
   myLibraryList->addModelObjectType(IddObjectType::OS_SpaceInfiltration_EffectiveLeakageArea, "Space Infiltration Effective Leakage Areas");
   myLibraryList->addModelObjectType(IddObjectType::OS_DesignSpecification_OutdoorAir, "Design Specification Outdoor Air");

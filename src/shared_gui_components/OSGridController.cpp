@@ -82,7 +82,7 @@ OSGridController::OSGridController()
   m_objectSelector = new OSObjectSelector(this);
 }
 
-OSGridController::OSGridController(bool isIP, const QString& headerText, IddObjectType iddObjectType, const model::Model& model,
+OSGridController::OSGridController(bool isIP, const QString& settingsKey, IddObjectType iddObjectType, const model::Model& model,
                                    const std::vector<model::ModelObject>& modelObjects)
   : QObject(),
     m_iddObjectType(iddObjectType),
@@ -98,7 +98,7 @@ OSGridController::OSGridController(bool isIP, const QString& headerText, IddObje
     m_model(model),
     m_isIP(isIP),
     m_horizontalHeaderBtnGrp(nullptr),
-    m_headerText(headerText) {
+    m_settingsKey(settingsKey) {
   loadQSettings();
 
   m_objectSelector = new OSObjectSelector(this);
@@ -114,13 +114,13 @@ OSGridController::~OSGridController() {
 }
 
 void OSGridController::loadQSettings() {
-  QSettings settings("OpenStudio", m_headerText);
+  QSettings settings("OpenStudio", m_settingsKey);
   auto temp = settings.value("customFields").toStringList().toVector();
   m_customFields = std::vector<QString>(temp.begin(), temp.end());
 }
 
 void OSGridController::saveQSettings() const {
-  QSettings settings("OpenStudio", m_headerText);
+  QSettings settings("OpenStudio", m_settingsKey);
   QVector<QVariant> vector;
   for (unsigned i = 0; i < m_customFields.size(); i++) {
     QVariant variant = m_customFields.at(i);
@@ -132,6 +132,10 @@ void OSGridController::saveQSettings() const {
 
 IddObjectType OSGridController::iddObjectType() const {
   return m_iddObjectType;
+}
+
+void OSGridController::setIddObjectType(const IddObjectType& iddObjectType) {
+  m_iddObjectType = iddObjectType;
 }
 
 bool OSGridController::isIP() const {

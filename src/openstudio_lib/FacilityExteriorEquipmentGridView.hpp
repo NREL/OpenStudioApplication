@@ -70,7 +70,7 @@ class FacilityExteriorEquipmentGridController : public OSGridController
   Q_OBJECT
 
  public:
-  FacilityExteriorEquipmentGridController(bool isIP, const QString& headerText, IddObjectType iddObjectType, const model::Model& model,
+  FacilityExteriorEquipmentGridController(bool isIP, const QString& settingsText, IddObjectType iddObjectType, const model::Model& model,
                                           const std::vector<model::ModelObject>& modelObjects);
 
   virtual ~FacilityExteriorEquipmentGridController() {}

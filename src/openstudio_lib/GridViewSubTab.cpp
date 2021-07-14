@@ -107,42 +107,40 @@ void GridViewSubTab::setGridController(OSGridController* gridController) {
 
 void GridViewSubTab::onAddClicked() {
   const auto& selectedObjects = m_gridController->selectedObjects();
-  if (m_supportsMultipleObjectSelection || selectedObjects.size() == 1) {
-    // Always make at least one
-    if (!selectedObjects.size()) {
-      addObject(m_gridController->iddObjectType());
-    } else {
-      for (auto& obj : selectedObjects) {
-        addObject(obj);
-      }
+
+  // Always make at least one
+  if (!selectedObjects.size()) {
+    addObject(m_gridController->iddObjectType());
+  } else {
+    for (auto& obj : selectedObjects) {
+      addObject(obj);
     }
   }
 }
 
 void GridViewSubTab::onCopyClicked() {
   const auto& selectedObjects = m_gridController->selectedObjects();
-  if (m_supportsMultipleObjectSelection || selectedObjects.size() == 1) {
-    for (auto& obj : selectedObjects) {
-      if (!obj.handle().isNull()) {
-        copyObject(obj);
-      }
+
+  for (auto& obj : selectedObjects) {
+    if (!obj.handle().isNull()) {
+      copyObject(obj);
     }
   }
 }
 
 void GridViewSubTab::onRemoveClicked() {
   const auto& selectedObjects = m_gridController->selectedObjects();
-  if (m_supportsMultipleObjectSelection || selectedObjects.size() == 1) {
-    for (auto& obj : selectedObjects) {
-      removeObject(obj);
-    }
+
+  for (auto& obj : selectedObjects) {
+    removeObject(obj);
   }
+
   // No selected rows will remain after a delete, so clear selection
   onClearSelection();
 }
 
 void GridViewSubTab::onPurgeClicked() {
-  purgeObjects(m_iddObjectType);
+  purgeObjects(m_gridController->iddObjectType());
 
   // No selected rows will remain after a delete, so clear selection
   onClearSelection();

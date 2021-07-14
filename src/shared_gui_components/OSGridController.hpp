@@ -169,7 +169,7 @@ class OSGridController : public QObject
   // This form utilizes the default implementations of
   // rowCount() and itemAt(), showing one row for each object
   // in the model that is iddObjectType
-  OSGridController(bool isIP, const QString& headerText, IddObjectType iddObjectType, const model::Model& model,
+  OSGridController(bool isIP, const QString& settingsKey, IddObjectType iddObjectType, const model::Model& model,
                    const std::vector<model::ModelObject>& modelObjects);
 
   virtual ~OSGridController();
@@ -470,6 +470,9 @@ class OSGridController : public QObject
 
   bool isIP() const;
 
+ protected:
+  void setIddObjectType(const IddObjectType& iddObjectType);
+
  private:
   // For testing
   friend class ::OpenStudioLibFixture;
@@ -573,7 +576,7 @@ class OSGridController : public QObject
 
   QButtonGroup* m_horizontalHeaderBtnGrp;
 
-  QString m_headerText;
+  QString m_settingsKey;
 
   int m_oldIndex = -1;
 

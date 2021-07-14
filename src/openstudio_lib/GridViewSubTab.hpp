@@ -59,8 +59,6 @@ class GridViewSubTab : public QWidget
 
   virtual ~GridViewSubTab() {}
 
-  openstudio::IddObjectType m_iddObjectType;
-
  protected:
   void setGridView(OSGridView* gridView);
 
@@ -83,8 +81,6 @@ class GridViewSubTab : public QWidget
   OSGridView* m_gridView = nullptr;
 
   OSGridController* m_gridController = nullptr;
-
-  bool m_supportsMultipleObjectSelection = true;
 
   bool m_isIP;
 
