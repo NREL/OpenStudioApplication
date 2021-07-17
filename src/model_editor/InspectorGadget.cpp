@@ -746,7 +746,7 @@ void InspectorGadget::layoutComboBox(QVBoxLayout* layout, QWidget* parent, opens
 
     for (const std::string& objectList : prop.objectLists) {
       for (const WorkspaceObject& workspaceObject : workspace.getObjectsByReference(objectList)) {
-        names.push_back(workspaceObject.name().get());
+        names.push_back(workspaceObject.nameString());
       }
     }
 

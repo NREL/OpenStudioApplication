@@ -63,7 +63,7 @@
 		<rule IddField="Zone Air Inlet Port List" Access="HIDDEN"/>
 		<rule IddField="Zone Air Exhaust Port List" Access="HIDDEN"/>
 		<rule IddField="Zone Air Node Name" Access="HIDDEN"/>
-		<rule IddField="Zone Return Air Node Name" Access="HIDDEN"/>
+		<rule IddField="Zone Return Air Port List" Access="HIDDEN"/>
 		<rule IddField="Thermostat Name" Access="LOCKED"/>
 		<rule IddField="Use Ideal Air Loads" Access="LOCKED"/>
 		<rule IddField="Humidistat Name" Access="LOCKED"/>

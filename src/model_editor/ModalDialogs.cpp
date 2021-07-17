@@ -251,7 +251,7 @@ struct NameSorter
   bool operator()(const WorkspaceObject& left, const WorkspaceObject& right) const {
     OS_ASSERT(left.name());
     OS_ASSERT(right.name());
-    return (istringLess(left.name().get(), right.name().get()));
+    return (istringLess(left.nameString(), right.nameString()));
   }
 };
 
@@ -272,7 +272,7 @@ void ModelObjectSelectorDialog::loadComboBoxData() {
   // add to combo box
   for (WorkspaceObject workspaceObject : workspaceObjects) {
     OS_ASSERT(workspaceObject.name());
-    std::string objectName = workspaceObject.name().get();
+    std::string objectName = workspaceObject.nameString();
     m_comboBox->addItem(toQString(objectName), toQString(workspaceObject.handle()));
   }
 
