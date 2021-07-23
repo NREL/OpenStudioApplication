@@ -110,6 +110,8 @@
 #include <openstudio/model/Mixer.hpp>
 #include <openstudio/model/ThermalZone.hpp>
 #include <openstudio/model/ThermalZone_Impl.hpp>
+#include <openstudio/model/ZoneHVACTerminalUnitVariableRefrigerantFlow.hpp>
+#include <openstudio/model/ZoneHVACTerminalUnitVariableRefrigerantFlow_Impl.hpp>
 
 #include "../model_editor/Utilities.hpp"
 
@@ -1819,7 +1821,20 @@ OASupplyBranchItem::OASupplyBranchItem(std::vector<model::ModelObject> supplyMod
       if ((reliefIt < reliefModelObjects.end()) && (!reliefIt->optionalCast<model::AirToAirComponent>())) {
         ++reliefIt;
       }
+    } else if (auto comp = supplyIt->optionalCast<model::ZoneHVACTerminalUnitVariableRefrigerantFlow>()) {
+      // VRF TU
+      GridItem* gridItem = new OASupplyStraightItem(this);
+      gridItem->setModelObject(comp->optionalCast<model::ModelObject>());
+      if (comp->isRemovable()) {
+        gridItem->setDeletable(true);
+      }
+      m_gridItems.push_back(gridItem);
+
+      if ((reliefIt < reliefModelObjects.end()) && (!reliefIt->optionalCast<model::AirToAirComponent>())) {
+        ++reliefIt;
+      }
     }
+
     ++supplyIt;
   }
 
@@ -1887,6 +1902,17 @@ OAReliefBranchItem::OAReliefBranchItem(std::vector<model::ModelObject> reliefMod
         ++supplyIt;
       }
     } else if (boost::optional<model::WaterToAirComponent> comp = reliefIt->optionalCast<model::WaterToAirComponent>()) {
+      GridItem* gridItem = new OAReliefStraightItem(this);
+      gridItem->setModelObject(comp->optionalCast<model::ModelObject>());
+      if (comp->isRemovable()) {
+        gridItem->setDeletable(true);
+      }
+      m_gridItems.push_back(gridItem);
+      if ((supplyIt < supplyModelObjects.end()) && (!supplyIt->optionalCast<model::AirToAirComponent>())) {
+        ++supplyIt;
+      }
+    } else if (auto comp = reliefIt->optionalCast<model::ZoneHVACTerminalUnitVariableRefrigerantFlow>()) {
+      // VRF TU
       GridItem* gridItem = new OAReliefStraightItem(this);
       gridItem->setModelObject(comp->optionalCast<model::ModelObject>());
       if (comp->isRemovable()) {
